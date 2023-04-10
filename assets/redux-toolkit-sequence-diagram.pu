@@ -1,0 +1,25 @@
+@startuml
+
+actor           User                as user
+entity          HomeProduct         as homeProduct
+entity          Search              as search
+entity          ShoppingCardIcon    as shoppingCardIcon
+database        Store               as store
+database        CounterSlice        as counterSlice
+
+user                -> homeProduct                      : Clicks on **+1 button**
+homeProduct         -> store                            : Sends **Action** and **increment reducer** by using **useDispatch**
+note right
+    Action: {
+        
+    }
+end note
+store               -> counterSlice                     : Dispatch **Action** and **increment reducer**
+counterSlice        -> counterSlice                     : state.Value = state.Value + 1
+
+group Subscribe to counter slice using **useSelector**
+    counterSlice        -> search                       : push data
+    counterSlice        -> shoppingCardIcon             : push data
+end
+
+@enduml
